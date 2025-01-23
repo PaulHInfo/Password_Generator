@@ -1,35 +1,44 @@
 package main
 
+/*
+
+small program to learn Golang
+
+*/
+
 import (
 	"fmt"
 	"math/rand"
 )
 
 var alpha string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-var other string = "$!/()-_éà£!?={}*#%&0123456789"
+var other string = "$!/()-£!?={}*#%&0123456789"
 
 func main() {
 	fmt.Println("--- PSSWD GENERATOR ---")
-	genpwd()
+	// List of char
+
+	// Ask user
+	var charByDefault bool = true
+	if charByDefault {
+		genpwd(alpha + other)
+	}
+
 }
 
 // letter
-func genpwd() string {
+func genpwd(charList string) string {
 	pssw := ""
-	var size_pswd int = 16
+	var sizePswd int = 32
 	check := 0
 	for true {
-		var nb int = rand.Intn(len(alpha)) + 0
-		pssw += string(alpha[nb])
+		var nb int = rand.Intn(len(charList)) + 0
+		pssw += string(charList[nb])
 		check++
-		if check == size_pswd {
+		if check == sizePswd {
 			fmt.Print(pssw)
 			break
 		}
 	}
 	return pssw
-}
-
-func add() {
-
 }
