@@ -21,7 +21,6 @@ var number string = "0123456789"
 func main() {
 	fmt.Println("--- PSSWD GENERATOR ---")
 	// Ask user
-
 	wierdSymbolBool, numberBool := askUser()
 
 	if wierdSymbolBool {
@@ -37,7 +36,6 @@ func main() {
 // letter
 func genpwd(charList string, sizearg int) string {
 	pssw := ""
-	//var sizePswd int = 32
 	check := 0
 	for true {
 		var nb int = rand.Intn(len(charList)) + 0
