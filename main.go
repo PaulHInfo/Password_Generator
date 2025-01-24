@@ -17,26 +17,31 @@ var other string = "$!/()-£!?={}*#%&0123456789"
 func main() {
 	fmt.Println("--- PSSWD GENERATOR ---")
 	// List of char
-
+	fmt.Println("Length of your password (default: 32): ")
 	// Ask user
-	var charByDefault bool = true
-	if charByDefault {
-		genpwd(alpha + other)
+	var i int
+        _, err := fmt.Scanf("%d", &i) //Getting the user input
+	if(err != nil){
+		genpwd(alpha + other, 32) //Default to 32 if user input is nil
+	}else{
+		genpwd(alpha + other, i) //Using the user input
 	}
 
 }
 
 // letter
-func genpwd(charList string) string {
+func genpwd(charList string, sizePswd int) string {
 	pssw := ""
-	var sizePswd int = 32
+	if (sizePswd == 0){
+		return pssw
+	}
 	check := 0
 	for true {
 		var nb int = rand.Intn(len(charList)) + 0
 		pssw += string(charList[nb])
 		check++
 		if check == sizePswd {
-			fmt.Print(pssw)
+			fmt.Println(pssw)
 			break
 		}
 	}
