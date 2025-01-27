@@ -1,9 +1,7 @@
 package main
 
 /*
-
 small program to learn Golang
-
 */
 
 import (
@@ -11,6 +9,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -21,7 +20,7 @@ var number string = "0123456789"
 func main() {
 	fmt.Println("--- PSSWD GENERATOR ---")
 	// Ask user
-	wierdSymbolBool, numberBool := askUser()
+	wierdSymbolBool, numberBool, sizePsswd := askUser()
 
 	if wierdSymbolBool {
 		alpha += other
@@ -29,7 +28,7 @@ func main() {
 	if numberBool {
 		alpha += number
 	}
-	genpwd(alpha, 32)
+	genpwd(alpha, sizePsswd)
 
 }
 
@@ -49,9 +48,10 @@ func genpwd(charList string, sizearg int) string {
 	return pssw
 }
 
-func askUser() (bool, bool) {
+func askUser() (bool, bool, int) {
 	var wierdBool bool
 	var numberBool bool
+	var size int
 	scan := bufio.NewScanner(os.Stdin)
 	//ask $£!
 	for {
@@ -63,7 +63,7 @@ func askUser() (bool, bool) {
 		} else if strings.EqualFold(strings.ToLower(scan.Text()), "n") {
 			break
 		} else {
-			fmt.Println(" --- Wrong --- ")
+			fmt.Println(" --- ERROR --- ")
 			continue
 		}
 	}
@@ -77,9 +77,24 @@ func askUser() (bool, bool) {
 		} else if strings.EqualFold(strings.ToLower(scan.Text()), "n") {
 			break
 		} else {
-			fmt.Println(" --- Wrong --- ")
+			fmt.Println(" --- ERROR --- ")
 			continue
 		}
 	}
-	return wierdBool, numberBool
+	for {
+		fmt.Print("psswd size -> [number] : ")
+		scan.Scan()
+		s, err := strconv.Atoi(scan.Text())
+		if err != nil || s < 8 {
+			fmt.Println(" --- ERROR --- ")
+			continue
+		} else {
+			size = s
+			fmt.Println(size)
+			break
+		}
+
+	}
+
+	return wierdBool, numberBool, size
 }
